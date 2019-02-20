@@ -1,5 +1,9 @@
 class ArticlesController < ApplicationController
   
+  def index
+    @articles = Article.all.order(created_at: :desc)
+  end
+  
   def new
     @article = Article.new
   end
@@ -30,6 +34,12 @@ class ArticlesController < ApplicationController
     else
       render 'edit'
     end
+  end
+  
+  def destroy
+    @article.destroy
+    flash[:notice] = "Article was deleted!"
+    redirect_to 'articles_path'
   end
   
   private
